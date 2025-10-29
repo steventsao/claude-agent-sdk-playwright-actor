@@ -1,14 +1,6 @@
-# Claude SDK + Playwright Actor
+# Claude Agent SDK + Playwright Actor
 
-Apify actor that combines Claude Agent SDK with Playwright MCP for AI-powered browser automation.
-
-## Features
-
-- **Claude Agent SDK**: Latest Claude models with agentic capabilities
-- **Playwright MCP**: Browser automation via Model Context Protocol
-- **Headless Browser**: Pre-installed Chromium for web scraping
-- **Python 3.12**: Modern Python runtime
-- **Apify Integration**: Seamless dataset storage and workflow integration
+Run Claude Agent SDK with Playwright MCP as an Apify Actor. Good for evaluating UIs on the web in parallel and on a schedule. See [example-prompt.md](./example-prompt.md) for reference.
 
 ## Usage
 
@@ -74,51 +66,3 @@ apify run -i input.json
 ## File Storage
 
 - Playwright MCP artifacts under `.playwright-mcp` and newly created workspace documents (`.html`, `.md`, `.json`, `.png`, etc.) are uploaded to the run's default key-value store. Reference the `artifacts`, `output_files`, or `stored_files` fields in the dataset output to retrieve them.
-
-## Template Comparison
-
-This actor is equivalent to the E2B template `claude-sdk-playwright` but designed for the Apify platform:
-
-**E2B Template Features:**
-- Python 3.12 base image
-- Node.js 24 for MCP
-- Claude SDK + Playwright MCP
-- Custom resource allocation
-
-**Apify Actor Features:**
-- Apify Python SDK integration
-- Dataset storage built-in
-- Input/output schema validation
-- Platform monitoring and logging
-- Workflow integration
-
-## Examples
-
-### Web Scraping
-
-```json
-{
-  "task": "Find all product prices on the page and return them as a list",
-  "url": "https://example-shop.com/products"
-}
-```
-
-### Form Automation
-
-```json
-{
-  "task": "Fill out the contact form with: name='John Doe', email='john@example.com', message='Test message', then submit"
-}
-```
-
-### Data Extraction
-
-```json
-{
-  "task": "Navigate to the documentation page and extract all API endpoint examples"
-}
-```
-
-## License
-
-Apache 2.0
