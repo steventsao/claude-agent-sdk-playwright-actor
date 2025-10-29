@@ -1,0 +1,10 @@
+{
+  "actorSpecification": 1,
+  "name": "claude-sdk-playwright",
+  "title": "Claude SDK + Playwright - Browser Automation Actor",
+  "description": "Apify actor with Claude Agent SDK and Playwright MCP for AI-powered browser automation and web scraping",
+  "version": "0.1",
+  "buildTag": "latest",
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile"
+}

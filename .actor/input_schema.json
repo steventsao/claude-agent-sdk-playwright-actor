@@ -1,0 +1,33 @@
+{
+  "title": "Claude SDK Playwright Actor Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "task": {
+      "title": "Task Description",
+      "type": "string",
+      "description": "The task for Claude to perform with browser automation",
+      "editor": "textarea"
+    },
+    "url": {
+      "title": "Starting URL",
+      "type": "string",
+      "description": "Optional URL to navigate to before starting the task",
+      "editor": "textfield"
+    },
+    "anthropicApiKey": {
+      "title": "Anthropic API Key",
+      "type": "string",
+      "description": "Your Anthropic API key (or set ANTHROPIC_API_KEY env var)",
+      "editor": "textfield",
+      "isSecret": true
+    },
+    "outputDatasetId": {
+      "title": "Output Dataset ID",
+      "type": "string",
+      "description": "Optional dataset ID to push results to",
+      "editor": "textfield"
+    }
+  },
+  "required": ["task"]
+}
