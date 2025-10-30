@@ -396,20 +396,10 @@ This is the design system and brand guidelines for {{domain}}. [2-3 clear senten
 Start working now. Analyze the files and write llms.txt."""
 
     try:
-        # Configure Claude SDK options with custom system prompt
+        # Configure Claude SDK options
         options = ClaudeAgentOptions(
             model="sonnet",
             permission_mode="bypassPermissions",
-            custom_system_prompt_suffix="""
-
-CRITICAL INSTRUCTIONS FOR THIS SESSION:
-- You are running in an automated environment with no human interaction
-- DO NOT ask clarifying questions or present options
-- Work autonomously with the information provided
-- When writing llms.txt, include ONLY the brand guideline markdown content
-- DO NOT include system messages, tool outputs, or meta-commentary in the file
-- Extract actual values from the files provided - no placeholders
-- Complete the task fully before ending the session"""
         )
 
         async with ClaudeSDKClient(options=options) as client:
