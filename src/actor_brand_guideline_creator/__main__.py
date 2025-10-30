@@ -257,7 +257,6 @@ async def generate_llms_txt_from_kv_store(
     Returns:
         Generated llms.txt content
     """
-    import aiohttp
     import json
 
     Actor.log.info(f"Opening KV store: {kv_store_id}")
@@ -272,27 +271,17 @@ async def generate_llms_txt_from_kv_store(
     # Open Actor 1's KV store with force_cloud=True for remote access
     kv_store = await Actor.open_key_value_store(id=kv_store_id, force_cloud=True)
 
-    # List all files in the KV store using Apify API
+    # List all files in the KV store using Apify SDK
     Actor.log.info("Listing KV store files...")
-    apify_token = os.getenv("APIFY_API_TOKEN")
-    if not apify_token:
-        raise ValueError("APIFY_API_TOKEN not found in environment")
-
-    list_url = f"https://api.apify.com/v2/key-value-stores/{kv_store_id}/keys?token={apify_token}"
-
-    async with aiohttp.ClientSession() as session:
-        async with session.get(list_url) as response:
-            if response.status != 200:
-                raise Exception(f"Failed to list KV store keys: {response.status}")
-            keys_data = await response.json()
-            keys = keys_data.get('data', {}).get('items', [])
+    keys_list = await kv_store.list_keys()
+    keys = keys_list.items if hasattr(keys_list, 'items') else []
 
     Actor.log.info(f"Found {len(keys)} files in KV store")
 
     # Download key files we need
     files_content = {}
     for key_item in keys:
-        key_name = key_item['key']
+        key_name = key_item.key
         Actor.log.info(f"Reading file: {key_name}")
 
         try:
