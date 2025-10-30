@@ -273,15 +273,18 @@ async def generate_llms_txt_from_kv_store(
 
     # List all files in the KV store using Apify SDK
     Actor.log.info("Listing KV store files...")
-    keys_list = await kv_store.list_keys()
-    keys = keys_list.items if hasattr(keys_list, 'items') else []
+
+    # Collect all keys first
+    keys = []
+    async for key_metadata in kv_store.iterate_keys():
+        keys.append(key_metadata)
 
     Actor.log.info(f"Found {len(keys)} files in KV store")
 
     # Download key files we need
     files_content = {}
-    for key_item in keys:
-        key_name = key_item.key
+    for key_metadata in keys:
+        key_name = key_metadata.key
         Actor.log.info(f"Reading file: {key_name}")
 
         try:
