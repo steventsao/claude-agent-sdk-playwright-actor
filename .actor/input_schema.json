@@ -1,26 +1,58 @@
 {
-  "title": "Claude SDK Playwright Actor Input",
+  "title": "Brand Guideline Creator Input",
   "type": "object",
   "schemaVersion": 1,
   "properties": {
-    "task": {
-      "title": "Task Description",
+    "defaultKeyValueStoreId": {
+      "title": "Default Key-Value Store ID",
       "type": "string",
-      "description": "The task for Claude to perform with browser automation",
-      "editor": "textarea"
-    },
-    "url": {
-      "title": "Starting URL",
-      "type": "string",
-      "description": "Optional URL to navigate to before starting the task",
+      "description": "KV store ID from Actor 1 webhook (via {{resource.defaultKeyValueStoreId}})",
       "editor": "textfield"
+    },
+    "kvStoreId": {
+      "title": "Key-Value Store ID (Legacy)",
+      "type": "string",
+      "description": "KV store ID from Actor 1 containing design system files (legacy direct input)",
+      "editor": "textfield"
+    },
+    "domain": {
+      "title": "Domain",
+      "type": "string",
+      "description": "Brand domain name (e.g., airbnb.com)",
+      "editor": "textfield"
+    },
+    "flaskApiUrl": {
+      "title": "Flask API URL",
+      "type": "string",
+      "description": "Production Flask API base URL (e.g., https://styleguide.fyi)",
+      "editor": "textfield",
+      "default": "https://styleguide.fyi"
+    },
+    "flaskApiSecret": {
+      "title": "Flask API Secret",
+      "type": "string",
+      "description": "Secret key for Flask privileged API authentication",
+      "editor": "textfield",
+      "isSecret": true
     },
     "anthropicApiKey": {
       "title": "Anthropic API Key",
       "type": "string",
-      "description": "Your Anthropic API key (or set ANTHROPIC_API_KEY env var)",
+      "description": "Your Anthropic API key for Claude",
       "editor": "textfield",
       "isSecret": true
+    },
+    "task": {
+      "title": "Task Description (Legacy)",
+      "type": "string",
+      "description": "Legacy: task for Claude (not needed for llms.txt generation)",
+      "editor": "textarea"
+    },
+    "url": {
+      "title": "Starting URL (Legacy)",
+      "type": "string",
+      "description": "Legacy: URL to navigate to",
+      "editor": "textfield"
     },
     "outputDatasetId": {
       "title": "Output Dataset ID",
@@ -29,5 +61,5 @@
       "editor": "textfield"
     }
   },
-  "required": ["task"]
+  "required": []
 }

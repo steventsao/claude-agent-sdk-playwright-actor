@@ -40,4 +40,4 @@ RUN chown -R myuser:myuser /usr/src/app /pw-browsers
 
 USER myuser
 
-CMD ["uv", "run", "--no-dev", "--frozen", "python3", "-m", "actor_claude_sdk_playwright"]
+CMD ["uv", "run", "--no-dev", "--frozen", "python3", "-m", "actor_brand_guideline_creator"]

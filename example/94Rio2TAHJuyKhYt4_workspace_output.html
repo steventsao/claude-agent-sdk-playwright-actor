@@ -1,0 +1,935 @@
+<script>
+Object.defineProperty(document, 'cookie', {
+    get: function() { return ''; },
+    set: function() { return true; }
+});
+if (cookieStore) {
+    cookieStore = {};
+}
+</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anthropic Design System</title>
+    <link href="https://fonts.googleapis.com/css?family=Fira+Code:400,500" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Styrene A';
+            src: url('https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67cfa79c9811d12c64ea34e4_StyreneA-Medium-Web.woff2') format('woff2');
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Styrene A';
+            src: url('https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67cfa79c68feeb7a79a02679_StyreneB-Regular-Web.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Styrene B';
+            src: url('https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67cfa79c68feeb7a79a02679_StyreneB-Regular-Web.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Styrene B';
+            src: url('https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67cfa79c8db0ceb8cee6350e_StyreneB-Medium-Web.woff2') format('woff2');
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Tiempos Text';
+            src: url('https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67cfa79cdb729ef52b9ec8a3_TiemposText-Regular.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Tiempos Text';
+            src: url('https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67cfa79dbca2eb537447ae24_TiemposText-Medium.woff2') format('woff2');
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Copernicus';
+            src: url('https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67cfa79de25b1be3c50e952a_Copernicus-Book.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        /* Color tokens */
+        :root {
+            --color-slate-dark: #141413;
+            --color-white: #ffffff;
+            --color-ivory-light: #faf9f5;
+            --color-ivory-medium: #f0eee6;
+            --color-ivory-dark: #e8e6dc;
+            --color-slate-light: #5e5d59;
+            --color-slate-medium: #3d3d3a;
+            --color-cloud-medium: #b0aea5;
+            --color-cloud-light: #d1cfc5;
+            --color-cloud-dark: #87867f;
+            --color-clay: #d97757;
+            --color-accent: #c6613f;
+            --color-olive: #788c5d;
+            --color-cactus: #bcd1ca;
+            --color-sky: #6a9bcc;
+            --color-oat: #e3dacc;
+            --color-manilla: #ebdbbc;
+            --color-kraft: #d4a27f;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tiempos Text', 'Times New Roman', serif;
+            color: var(--color-slate-dark);
+            background-color: var(--color-ivory-light);
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+            padding: 2rem;
+            background: var(--color-white);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            font-family: 'Styrene A', Arial, sans-serif;
+            font-size: clamp(2rem, 1.694rem + 1.31vw, 3rem);
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: var(--color-slate-dark);
+        }
+
+        h2 {
+            font-family: 'Styrene A', Arial, sans-serif;
+            font-size: clamp(1.75rem, 1.673rem + 0.33vw, 2rem);
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            color: var(--color-slate-dark);
+            border-bottom: 2px solid var(--color-ivory-medium);
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-family: 'Styrene B', Arial, sans-serif;
+            font-size: clamp(1.25rem, 1.173rem + 0.33vw, 1.5rem);
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: var(--color-slate-medium);
+        }
+
+        p {
+            font-family: 'Tiempos Text', 'Times New Roman', serif;
+            font-size: 1.125rem;
+            line-height: 1.6;
+            color: var(--color-slate-light);
+            margin-bottom: 1rem;
+        }
+
+        .intro {
+            font-size: 1.25rem;
+            color: var(--color-slate-light);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Color Palette */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .color-swatch {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .color-swatch:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .color-sample {
+            width: 100%;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-white);
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            font-size: 0.875rem;
+        }
+
+        .color-info {
+            padding: 1rem;
+            background: var(--color-ivory-light);
+            font-family: 'Fira Code', monospace;
+            font-size: 0.875rem;
+        }
+
+        .color-name {
+            font-weight: 600;
+            color: var(--color-slate-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .color-value {
+            color: var(--color-slate-light);
+            word-break: break-all;
+        }
+
+        /* Typography */
+        .typography-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .typography-family {
+            border-left: 4px solid var(--color-clay);
+            padding-left: 1.5rem;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        .typography-family h3 {
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            color: var(--color-slate-dark);
+        }
+
+        .font-weight-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .weight-label {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.875rem;
+            color: var(--color-slate-light);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .sample-text {
+            padding: 1rem;
+            background: var(--color-ivory-light);
+            border-radius: 6px;
+            line-height: 1.8;
+            color: var(--color-slate-dark);
+        }
+
+        .sample-text-serif {
+            font-family: 'Tiempos Text', 'Times New Roman', serif;
+            font-size: 1.125rem;
+        }
+
+        .sample-text-display {
+            font-family: 'Styrene A', Arial, sans-serif;
+            font-size: 1.5rem;
+        }
+
+        .sample-text-detail {
+            font-family: 'Styrene B', Arial, sans-serif;
+            font-size: 1rem;
+        }
+
+        .sample-text-mono {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+        }
+
+        .font-weight-400 {
+            font-weight: 400;
+        }
+
+        .font-weight-500 {
+            font-weight: 500;
+        }
+
+        .font-weight-600 {
+            font-weight: 600;
+        }
+
+        /* Components */
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .component-card {
+            background: var(--color-ivory-light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--color-ivory-medium);
+        }
+
+        .component-title {
+            font-family: 'Styrene B', Arial, sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--color-slate-dark);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            border: none;
+            font-family: 'Styrene B', Arial, sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background-color: var(--color-clay);
+            color: var(--color-white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(217, 119, 87, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: var(--color-ivory-medium);
+            color: var(--color-slate-dark);
+            border: 2px solid var(--color-slate-medium);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--color-ivory-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--color-clay);
+            border: 2px solid var(--color-clay);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--color-clay);
+            color: var(--color-white);
+        }
+
+        .btn-accent {
+            background-color: var(--color-olive);
+            color: var(--color-white);
+        }
+
+        .btn-accent:hover {
+            background-color: #6b7c52;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(120, 140, 93, 0.3);
+        }
+
+        /* Typography Scale */
+        .typography-scale {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .heading-h1 {
+            font-family: 'Styrene A', Arial, sans-serif;
+            font-size: clamp(2rem, 1.694rem + 1.31vw, 3rem);
+            font-weight: 500;
+            color: var(--color-slate-dark);
+        }
+
+        .heading-h2 {
+            font-family: 'Styrene A', Arial, sans-serif;
+            font-size: clamp(1.75rem, 1.673rem + 0.33vw, 2rem);
+            font-weight: 500;
+            color: var(--color-slate-dark);
+        }
+
+        .heading-h3 {
+            font-family: 'Styrene B', Arial, sans-serif;
+            font-size: clamp(1.25rem, 1.173rem + 0.33vw, 1.5rem);
+            font-weight: 500;
+            color: var(--color-slate-medium);
+        }
+
+        .body-large {
+            font-family: 'Tiempos Text', 'Times New Roman', serif;
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: var(--color-slate-light);
+        }
+
+        .body-regular {
+            font-family: 'Tiempos Text', 'Times New Roman', serif;
+            font-size: 1.125rem;
+            font-weight: 400;
+            color: var(--color-slate-light);
+        }
+
+        .body-small {
+            font-family: 'Tiempos Text', 'Times New Roman', serif;
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--color-slate-light);
+        }
+
+        .caption {
+            font-family: 'Styrene B', Arial, sans-serif;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--color-cloud-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .code {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            font-weight: 400;
+            color: var(--color-slate-dark);
+            background: var(--color-ivory-light);
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--color-white);
+            border: 2px solid var(--color-ivory-medium);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: var(--color-clay);
+            box-shadow: 0 4px 12px rgba(217, 119, 87, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .card-title {
+            font-family: 'Styrene B', Arial, sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-slate-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .card-description {
+            font-family: 'Tiempos Text', 'Times New Roman', serif;
+            font-size: 0.95rem;
+            color: var(--color-slate-light);
+        }
+
+        /* Color variants cards */
+        .color-variant-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .color-variant-card {
+            padding: 1rem;
+            border-radius: 6px;
+            text-align: center;
+            color: var(--color-white);
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .color-variant-card:hover {
+            transform: scale(1.05);
+        }
+
+        .variant-label {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .bg-clay { background-color: var(--color-clay); }
+        .bg-accent { background-color: var(--color-accent); }
+        .bg-olive { background-color: var(--color-olive); }
+        .bg-sky { background-color: var(--color-sky); }
+        .bg-cactus { background-color: var(--color-cactus); }
+        .bg-kraft { background-color: var(--color-kraft); }
+        .bg-slate-dark { background-color: var(--color-slate-dark); }
+        .bg-slate-medium { background-color: var(--color-slate-medium); }
+
+        .color-variant-card.light {
+            color: var(--color-slate-dark);
+            text-shadow: none;
+        }
+
+        .bg-ivory-light { background-color: var(--color-ivory-light); }
+        .bg-ivory-medium { background-color: var(--color-ivory-medium); }
+
+        /* Layout helpers */
+        .flex-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .mt-2 { margin-top: 2rem; }
+        .mb-2 { margin-bottom: 2rem; }
+
+        .demo-area {
+            background: var(--color-ivory-light);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="section">
+            <h1>Anthropic Design System</h1>
+            <p class="intro">A comprehensive visual design system extraction from anthropic.com, showcasing semantic colors, typography, and reusable components.</p>
+        </div>
+
+        <!-- Color Palette Section -->
+        <div class="section">
+            <h2>Color Palette</h2>
+            <p>The Anthropic design system uses a warm, earthy color palette with semantic naming conventions. These colors establish the visual identity across all digital products.</p>
+
+            <h3>Primary Colors</h3>
+            <div class="color-grid">
+                <div class="color-swatch">
+                    <div class="color-sample" style="background-color: var(--color-clay);">Clay</div>
+                    <div class="color-info">
+                        <div class="color-name">Clay</div>
+                        <div class="color-value">#d97757</div>
+                        <div class="color-value">rgb(217, 119, 87)</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-sample" style="background-color: var(--color-accent);">Accent</div>
+                    <div class="color-info">
+                        <div class="color-name">Accent</div>
+                        <div class="color-value">#c6613f</div>
+                        <div class="color-value">rgb(198, 97, 63)</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2rem;">Secondary Colors</h3>
+            <div class="color-grid">
+                <div class="color-swatch">
+                    <div class="color-sample" style="background-color: var(--color-olive);">Olive</div>
+                    <div class="color-info">
+                        <div class="color-name">Olive</div>
+                        <div class="color-value">#788c5d</div>
+                        <div class="color-value">rgb(120, 140, 93)</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-sample" style="background-color: var(--color-sky);">Sky</div>
+                    <div class="color-info">
+                        <div class="color-name">Sky</div>
+                        <div class="color-value">#6a9bcc</div>
+                        <div class="color-value">rgb(106, 155, 204)</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-sample" style="background-color: var(--color-cactus);">Cactus</div>
+                    <div class="color-info">
+                        <div class="color-name">Cactus</div>
+                        <div class="color-value">#bcd1ca</div>
+                        <div class="color-value">rgb(188, 209, 202)</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2rem;">Neutral Colors</h3>
+            <div class="color-grid">
+                <div class="color-swatch">
+                    <div class="color-sample" style="background-color: var(--color-slate-dark); color: var(--color-white);">Slate Dark</div>
+                    <div class="color-info">
+                        <div class="color-name">Slate Dark</div>
+                        <div class="color-value">#141413</div>
+                        <div class="color-value">rgb(20, 20, 19)</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-sample" style="background-color: var(--color-slate-medium); color: var(--color-white);">Slate Medium</div>
+                    <div class="color-info">
+                        <div class="color-name">Slate Medium</div>
+                        <div class="color-value">#3d3d3a</div>
+                        <div class="color-value">rgb(61, 61, 58)</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-sample" style="background-color: var(--color-slate-light); color: var(--color-white);">Slate Light</div>
+                    <div class="color-info">
+                        <div class="color-name">Slate Light</div>
+                        <div class="color-value">#5e5d59</div>
+                        <div class="color-value">rgb(94, 93, 89)</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-sample" style="background-color: var(--color-ivory-light);">Ivory Light</div>
+                    <div class="color-info">
+                        <div class="color-name">Ivory Light</div>
+                        <div class="color-value">#faf9f5</div>
+                        <div class="color-value">rgb(250, 249, 245)</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-sample" style="background-color: var(--color-ivory-medium);">Ivory Medium</div>
+                    <div class="color-info">
+                        <div class="color-name">Ivory Medium</div>
+                        <div class="color-value">#f0eee6</div>
+                        <div class="color-value">rgb(240, 238, 230)</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-sample" style="background-color: var(--color-ivory-dark);">Ivory Dark</div>
+                    <div class="color-info">
+                        <div class="color-name">Ivory Dark</div>
+                        <div class="color-value">#e8e6dc</div>
+                        <div class="color-value">rgb(232, 230, 220)</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2rem;">Accent & Utility Colors</h3>
+            <div class="color-grid">
+                <div class="color-swatch">
+                    <div class="color-sample" style="background-color: var(--color-kraft);">Kraft</div>
+                    <div class="color-info">
+                        <div class="color-name">Kraft</div>
+                        <div class="color-value">#d4a27f</div>
+                        <div class="color-value">rgb(212, 162, 127)</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-sample" style="background-color: var(--color-oat);">Oat</div>
+                    <div class="color-info">
+                        <div class="color-name">Oat</div>
+                        <div class="color-value">#e3dacc</div>
+                        <div class="color-value">rgb(227, 218, 204)</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-sample" style="background-color: var(--color-manilla);">Manilla</div>
+                    <div class="color-info">
+                        <div class="color-name">Manilla</div>
+                        <div class="color-value">#ebdbbc</div>
+                        <div class="color-value">rgb(235, 219, 188)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Typography Section -->
+        <div class="section">
+            <h2>Typography</h2>
+            <p>Anthropic uses a carefully curated set of typefaces for different contexts: Styrene for headings, Tiempos Text for body content, and Fira Code for technical elements.</p>
+
+            <div class="typography-grid">
+                <!-- Styrene A (Display Sans) -->
+                <div class="typography-family">
+                    <h3>Styrene A – Display Headings</h3>
+                    <div class="font-weight-group">
+                        <div class="weight-label">Regular (400)</div>
+                        <div class="sample-text sample-text-display font-weight-400">
+                            The quick brown fox jumps over the lazy dog
+                        </div>
+                    </div>
+                    <div class="font-weight-group">
+                        <div class="weight-label">Medium (500)</div>
+                        <div class="sample-text sample-text-display font-weight-500">
+                            The quick brown fox jumps over the lazy dog
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Styrene B (Detail Sans) -->
+                <div class="typography-family">
+                    <h3>Styrene B – UI Elements & Details</h3>
+                    <div class="font-weight-group">
+                        <div class="weight-label">Regular (400)</div>
+                        <div class="sample-text sample-text-detail font-weight-400">
+                            The quick brown fox jumps over the lazy dog
+                        </div>
+                    </div>
+                    <div class="font-weight-group">
+                        <div class="weight-label">Medium (500)</div>
+                        <div class="sample-text sample-text-detail font-weight-500">
+                            The quick brown fox jumps over the lazy dog
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tiempos Text (Body Serif) -->
+                <div class="typography-family">
+                    <h3>Tiempos Text – Body Content</h3>
+                    <div class="font-weight-group">
+                        <div class="weight-label">Regular (400)</div>
+                        <div class="sample-text sample-text-serif font-weight-400">
+                            The quick brown fox jumps over the lazy dog. Sphinx of black quartz, judge my vow.
+                        </div>
+                    </div>
+                    <div class="font-weight-group">
+                        <div class="weight-label">Medium (500)</div>
+                        <div class="sample-text sample-text-serif font-weight-500">
+                            The quick brown fox jumps over the lazy dog. Sphinx of black quartz, judge my vow.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Copernicus (Display Serif) -->
+                <div class="typography-family">
+                    <h3>Copernicus – Large Headlines</h3>
+                    <div class="font-weight-group">
+                        <div class="weight-label">Book (400)</div>
+                        <div class="sample-text" style="font-family: 'Copernicus', 'Times New Roman', serif; font-size: 1.75rem; font-weight: 400;">
+                            The quick brown fox
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fira Code (Monospace) -->
+                <div class="typography-family">
+                    <h3>Fira Code – Code & Technical</h3>
+                    <div class="font-weight-group">
+                        <div class="weight-label">Regular (400)</div>
+                        <div class="sample-text sample-text-mono font-weight-400">
+                            function createDesignSystem() { return tokens; }
+                        </div>
+                    </div>
+                    <div class="font-weight-group">
+                        <div class="weight-label">Medium (500)</div>
+                        <div class="sample-text sample-text-mono font-weight-500">
+                            const theme = { colors, typography, spacing };
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Typography Scale -->
+        <div class="section">
+            <h2>Typography Scale</h2>
+            <p>A hierarchical scale for consistent sizing and visual hierarchy throughout the product.</p>
+
+            <div class="demo-area">
+                <div class="heading-h1">Heading 1 – Large Hero</div>
+                <div class="caption" style="margin: 0.5rem 0 1.5rem 0;">Styrene A Medium, clamp(2rem, 1.694rem + 1.31vw, 3rem)</div>
+
+                <div class="heading-h2">Heading 2 – Section Title</div>
+                <div class="caption" style="margin: 0.5rem 0 1.5rem 0;">Styrene A Medium, clamp(1.75rem, 1.673rem + 0.33vw, 2rem)</div>
+
+                <div class="heading-h3">Heading 3 – Subsection</div>
+                <div class="caption" style="margin: 0.5rem 0 1.5rem 0;">Styrene B Medium, clamp(1.25rem, 1.173rem + 0.33vw, 1.5rem)</div>
+
+                <div class="body-large">Body Large – 1.25rem</div>
+                <div class="caption" style="margin: 0.5rem 0 1.5rem 0;">Tiempos Text Regular, 1.25rem</div>
+
+                <div class="body-regular">Body Regular – 1.125rem – Standard paragraph text used throughout the interface.</div>
+                <div class="caption" style="margin: 0.5rem 0 1.5rem 0;">Tiempos Text Regular, 1.125rem</div>
+
+                <div class="body-small">Body Small – 1rem – Compact text for dense layouts.</div>
+                <div class="caption" style="margin: 0.5rem 0 1.5rem 0;">Tiempos Text Regular, 1rem</div>
+
+                <div class="caption" style="margin-top: 1.5rem;">UI LABEL – STYRENE B 500, 0.875REM</div>
+                <div class="code">const token = "--color-clay";</div>
+            </div>
+        </div>
+
+        <!-- Components Section -->
+        <div class="section">
+            <h2>Components & Patterns</h2>
+            <p>Reusable UI components built with the Anthropic design tokens, demonstrating practical application of the design system.</p>
+
+            <!-- Buttons -->
+            <div class="mt-2">
+                <h3>Buttons</h3>
+                <div class="component-card">
+                    <div class="component-title">Button Variants</div>
+                    <div class="button-group">
+                        <button class="btn-primary">Primary Action</button>
+                        <button class="btn-secondary">Secondary Action</button>
+                        <button class="btn-outline">Outline Button</button>
+                        <button class="btn-accent">Accent Action</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Color Variants -->
+            <div class="mt-2">
+                <h3>Color Variants</h3>
+                <div class="component-card">
+                    <div class="component-title">Interactive Color States</div>
+                    <div class="color-variant-grid">
+                        <div class="color-variant-card bg-clay">
+                            <strong>Primary</strong>
+                            <div class="variant-label">#d97757</div>
+                        </div>
+                        <div class="color-variant-card bg-accent">
+                            <strong>Accent</strong>
+                            <div class="variant-label">#c6613f</div>
+                        </div>
+                        <div class="color-variant-card bg-olive">
+                            <strong>Success</strong>
+                            <div class="variant-label">#788c5d</div>
+                        </div>
+                        <div class="color-variant-card bg-sky">
+                            <strong>Info</strong>
+                            <div class="variant-label">#6a9bcc</div>
+                        </div>
+                        <div class="color-variant-card bg-slate-dark">
+                            <strong>Dark</strong>
+                            <div class="variant-label">#141413</div>
+                        </div>
+                        <div class="color-variant-card bg-ivory-light light" style="border: 1px solid #e0ddd3;">
+                            <strong>Light</strong>
+                            <div class="variant-label">#faf9f5</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cards -->
+            <div class="mt-2">
+                <h3>Cards</h3>
+                <div class="component-grid">
+                    <div class="card">
+                        <div class="card-title">Feature Card</div>
+                        <div class="card-description">
+                            Clean card component with subtle borders and hover interactions. Useful for showcasing features or content groupings.
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">Product Card</div>
+                        <div class="card-description">
+                            Cards adapt to various content types. The design system provides consistent spacing and typography hierarchy.
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">Interactive Card</div>
+                        <div class="card-description">
+                            Hover states include color transitions and subtle elevation changes, creating a responsive visual feedback.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text Hierarchy -->
+            <div class="mt-2">
+                <h3>Text Hierarchy Example</h3>
+                <div class="component-card">
+                    <div style="border-bottom: 2px solid var(--color-ivory-medium); padding-bottom: 1.5rem; margin-bottom: 1.5rem;">
+                        <div class="heading-h2">Article Title in Heading 2</div>
+                        <div style="font-family: 'Styrene B', Arial, sans-serif; color: var(--color-cloud-dark); text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.875rem; margin-bottom: 1rem;">Published October 30, 2025</div>
+                    </div>
+                    <div class="body-regular" style="margin-bottom: 1rem;">
+                        This is a paragraph in the body regular size. It uses Tiempos Text as the primary serif font for readable, engaging content. The warm color palette supports a friendly, approachable tone.
+                    </div>
+                    <div class="body-regular" style="margin-bottom: 1.5rem;">
+                        Secondary paragraphs maintain the same typography but may include inline elements like <strong style="font-weight: 600;">emphasized text</strong> or <span class="code">code snippets</span> for technical content.
+                    </div>
+                    <button class="btn-primary">Learn More</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Design Tokens Reference -->
+        <div class="section">
+            <h2>Design Tokens Reference</h2>
+            <p>Complete CSS custom properties used throughout the design system for consistency and maintainability.</p>
+
+            <h3 style="margin-top: 1.5rem;">Color Tokens</h3>
+            <div style="background: var(--color-ivory-light); padding: 1.5rem; border-radius: 6px; font-family: 'Fira Code', monospace; font-size: 0.875rem; line-height: 1.8; overflow-x: auto;">
+                <div>--color-slate-dark: #141413</div>
+                <div>--color-white: #ffffff</div>
+                <div>--color-ivory-light: #faf9f5</div>
+                <div>--color-ivory-medium: #f0eee6</div>
+                <div>--color-ivory-dark: #e8e6dc</div>
+                <div>--color-slate-light: #5e5d59</div>
+                <div>--color-slate-medium: #3d3d3a</div>
+                <div>--color-cloud-medium: #b0aea5</div>
+                <div>--color-cloud-light: #d1cfc5</div>
+                <div>--color-cloud-dark: #87867f</div>
+                <div>--color-clay: #d97757</div>
+                <div>--color-accent: #c6613f</div>
+                <div>--color-olive: #788c5d</div>
+                <div>--color-cactus: #bcd1ca</div>
+                <div>--color-sky: #6a9bcc</div>
+                <div>--color-oat: #e3dacc</div>
+                <div>--color-manilla: #ebdbbc</div>
+                <div>--color-kraft: #d4a27f</div>
+            </div>
+
+            <h3 style="margin-top: 1.5rem;">Font Families</h3>
+            <div style="background: var(--color-ivory-light); padding: 1.5rem; border-radius: 6px; font-family: 'Fira Code', monospace; font-size: 0.875rem; line-height: 1.8; overflow-x: auto;">
+                <div><strong>Display Headings:</strong> 'Styrene A', Arial, sans-serif</div>
+                <div><strong>UI Elements:</strong> 'Styrene B', Arial, sans-serif</div>
+                <div><strong>Body Content:</strong> 'Tiempos Text', 'Times New Roman', serif</div>
+                <div><strong>Large Headlines:</strong> 'Copernicus', 'Times New Roman', serif</div>
+                <div><strong>Code/Technical:</strong> 'Fira Code', monospace</div>
+            </div>
+
+            <h3 style="margin-top: 1.5rem;">Font Weights</h3>
+            <div style="background: var(--color-ivory-light); padding: 1.5rem; border-radius: 6px; font-family: 'Fira Code', monospace; font-size: 0.875rem; line-height: 1.8;">
+                <div>Regular: 400</div>
+                <div>Medium: 500</div>
+                <div>Semibold: 600</div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="section" style="text-align: center; color: var(--color-cloud-dark);">
+            <p style="font-size: 0.95rem; margin-bottom: 0.5rem;">Design System Documentation</p>
+            <p style="font-size: 0.875rem; font-family: 'Fira Code', monospace;">Extracted from anthropic.com • October 2025</p>
+        </div>
+    </div>
+</body>
+</html>

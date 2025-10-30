@@ -3,7 +3,7 @@ revision = 2
 requires-python = ">=3.11, <3.13"
 
 [[package]]
-name = "actor-claude-sdk-playwright"
+name = "actor-brand-guideline-creator"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [

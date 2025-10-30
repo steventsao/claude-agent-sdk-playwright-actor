@@ -1,8 +1,8 @@
 {
   "actorSpecification": 1,
-  "name": "claude-sdk-playwright",
-  "title": "Claude SDK + Playwright - Browser Automation Actor",
-  "description": "Apify actor with Claude Agent SDK and Playwright MCP for AI-powered browser automation and web scraping",
+  "name": "brand-guideline-creator",
+  "title": "Brand Guideline Creator - AI-Powered Brand Analysis",
+  "description": "Generate comprehensive brand guidelines using Claude Agent SDK. Analyzes brands and creates detailed brand guideline documents.",
   "version": "0.1",
   "buildTag": "latest",
   "input": "./input_schema.json",
