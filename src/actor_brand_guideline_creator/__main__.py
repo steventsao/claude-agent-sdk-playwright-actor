@@ -396,10 +396,16 @@ This is the design system and brand guidelines for {{domain}}. [2-3 clear senten
 Start working now. Analyze the files and write llms.txt."""
 
     try:
-        # Configure Claude SDK options
+        # Configure Claude SDK options with system prompt
+        system_prompt = """You are running in an automated environment with NO human interaction.
+CRITICAL: DO NOT ask questions, present options, or wait for user input.
+Work autonomously to completion with the information provided.
+When writing llms.txt: include ONLY the markdown content, NO system messages or meta-commentary."""
+
         options = ClaudeAgentOptions(
             model="sonnet",
             permission_mode="bypassPermissions",
+            system_prompt=system_prompt,
         )
 
         async with ClaudeSDKClient(options=options) as client:
